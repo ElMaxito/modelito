@@ -1,6 +1,7 @@
 <script lang="ts">
   import { authService } from '$features/authentication/auth-service'
   import { goto } from '$app/navigation'
+  import { Sparkles, Mail, Lock, AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-svelte'
   
   let email = $state('')
   let password = $state('')
@@ -31,34 +32,47 @@
   }
 </script>
 
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
-  <div class="card w-96 bg-white shadow-2xl">
-    <div class="card-body">
-      <h2 class="card-title text-2xl font-bold text-gray-800 mb-2">
-        Create Account
-      </h2>
-      <p class="text-gray-600 mb-4">Join Modelito today</p>
+<div class="min-h-screen animated-gradient flex items-center justify-center px-4 py-8">
+  <!-- Background decorations -->
+  <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-primary rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+
+  <div class="relative z-10 w-full max-w-md">
+    <!-- Back to home link -->
+    <a href="/" class="inline-flex items-center gap-2 text-white/70 hover:text-white mb-8 transition-colors">
+      <ArrowLeft class="w-4 h-4" />
+      Back to home
+    </a>
+
+    <!-- Auth Card -->
+    <div class="glass-effect rounded-3xl p-8 backdrop-blur-xl">
+      <!-- Logo and Title -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-brand-gradient rounded-2xl mb-4 glow-primary">
+          <Sparkles class="w-8 h-8 text-white" />
+        </div>
+        <h1 class="text-3xl font-bold text-white mb-2">Create Account</h1>
+        <p class="text-gray-400">Join Modelito today</p>
+      </div>
       
       {#if success}
-        <div class="alert alert-success mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>Check your email to confirm your account!</span>
+        <div class="glass-effect-light border border-green-500/30 rounded-2xl p-4 mb-6 flex items-start gap-3">
+          <CheckCircle2 class="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
+          <span class="text-green-300 text-sm">Check your email to confirm your account!</span>
         </div>
       {:else if error}
-        <div class="alert alert-error mb-4">
-          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>{error}</span>
+        <div class="glass-effect-light border border-red-500/30 rounded-2xl p-4 mb-6 flex items-start gap-3">
+          <AlertCircle class="w-5 h-5 text-red-400 flex-shrink-0 mt-0.5" />
+          <span class="text-red-300 text-sm">{error}</span>
         </div>
       {/if}
 
       <!-- Google Sign Up Button -->
       <button 
         onclick={handleGoogleSignup}
-        class="btn btn-outline w-full mb-4 gap-2"
+        class="w-full glass-effect-light border border-white/20 rounded-2xl px-6 py-4 flex items-center justify-center gap-3 text-white hover:bg-white/10 transition-all mb-6 disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={success}
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24">
@@ -70,58 +84,66 @@
         Continue with Google
       </button>
 
-      <div class="divider">OR</div>
+      <div class="flex items-center gap-4 mb-6">
+        <div class="flex-1 h-px bg-white/10"></div>
+        <span class="text-gray-400 text-sm">OR</span>
+        <div class="flex-1 h-px bg-white/10"></div>
+      </div>
 
       <!-- Email/Password Form -->
       <form onsubmit={handleSignup}>
-        <div class="form-control">
-          <label class="label" for="email">
-            <span class="label-text">Email</span>
-          </label>
-          <input
-            id="email"
-            type="email"
-            bind:value={email}
-            class="input input-bordered"
-            placeholder="your@email.com"
-            required
-            disabled={success}
-          />
-        </div>
+        <div class="space-y-4">
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">
+              Email
+            </label>
+            <div class="relative">
+              <Mail class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                id="email"
+                type="email"
+                bind:value={email}
+                class="w-full glass-effect-light border border-white/20 rounded-2xl px-12 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                placeholder="your@email.com"
+                required
+                disabled={success}
+              />
+            </div>
+          </div>
 
-        <div class="form-control mt-4">
-          <label class="label" for="password">
-            <span class="label-text">Password</span>
-          </label>
-          <input
-            id="password"
-            type="password"
-            bind:value={password}
-            class="input input-bordered"
-            placeholder="••••••••"
-            required
-            minlength="6"
-            disabled={success}
-          />
-          <div class="label">
-            <span class="label-text-alt">Minimum 6 characters</span>
+          <div>
+            <label for="password" class="block text-sm font-medium text-gray-300 mb-2">
+              Password
+            </label>
+            <div class="relative">
+              <Lock class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                id="password"
+                type="password"
+                bind:value={password}
+                class="w-full glass-effect-light border border-white/20 rounded-2xl px-12 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-primary/50 focus:ring-2 focus:ring-primary/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                placeholder="••••••••"
+                required
+                minlength="6"
+                disabled={success}
+              />
+            </div>
+            <p class="text-xs text-gray-500 mt-2">Minimum 6 characters</p>
           </div>
         </div>
 
-        <div class="form-control mt-6">
-          <button 
-            type="submit" 
-            class="btn btn-primary"
-            disabled={loading || success}
-          >
-            {loading ? 'Creating account...' : 'Sign Up'}
-          </button>
-        </div>
+        <button 
+          type="submit" 
+          class="w-full mt-6 btn btn-primary rounded-2xl px-6 py-4 font-semibold hover:scale-[1.02] transition-transform glow-primary disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={loading || success}
+        >
+          {loading ? 'Creating account...' : 'Sign Up'}
+        </button>
       </form>
 
-      <p class="text-center text-sm mt-6 text-gray-600">
+      <p class="text-center text-sm mt-6 text-gray-400">
         Already have an account?
-        <a href="/login" class="link link-primary font-semibold">Sign in</a>
+        <a href="/login" class="text-primary hover:text-primary-focus font-semibold transition-colors">Sign in</a>
       </p>
     </div>
   </div>

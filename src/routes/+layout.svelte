@@ -7,6 +7,9 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<script>
+		document.documentElement.setAttribute('data-theme', 'luxury');
+	</script>
 </svelte:head>
 
 {@render children?.()}
