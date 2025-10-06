@@ -1,14 +1,14 @@
 <script lang="ts">
   import Card from './Card.svelte';
   import IconBox from './IconBox.svelte';
-  
+
   interface Props {
     icon: any; // Lucide icon component
     title: string;
     description: string;
     variant?: 'primary' | 'secondary' | 'accent';
   }
-  
+
   let { icon: Icon, title, description, variant = 'primary' }: Props = $props();
 </script>
 
