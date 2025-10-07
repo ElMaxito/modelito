@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Zap, Shield, Sparkles, ArrowRight, Github, Twitter, Linkedin } from 'lucide-svelte';
-	import { Button, Card, IconBox, FeatureCard, Container } from '$features/shared/components';
+	import { Button, Card, IconBox, FeatureCard, Container } from '$shared/components';
 </script>
 
 <div class="min-h-screen animated-gradient text-white overflow-x-hidden">

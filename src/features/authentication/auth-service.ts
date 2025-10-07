@@ -1,5 +1,5 @@
 import type { User } from '@supabase/supabase-js'
-import { getSupabaseBrowser } from '$lib/supabase'
+import { getSupabaseBrowser } from '../../services/supabase/client'
 
 export const authService = {
   // Email/password methods (keep existing)
@@ -31,7 +31,7 @@ export const authService = {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/callback`
+        redirectTo: `${window.location.origin}/auth/callback`
       }
     })
     
@@ -39,7 +39,7 @@ export const authService = {
     return data
   },
 
-  async signOut() {
+  async logout() {
     const supabase = getSupabaseBrowser()
     const { error } = await supabase.auth.signOut()
     if (error) throw error
@@ -47,7 +47,8 @@ export const authService = {
 
   async getCurrentUser(): Promise<User | null> {
     const supabase = getSupabaseBrowser()
-    const { data: { user } } = await supabase.auth.getUser()
+    const { data: { user }, error } = await supabase.auth.getUser()
+    if (error) throw error
     return user
   },
 

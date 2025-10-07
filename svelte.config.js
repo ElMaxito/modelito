@@ -10,6 +10,7 @@ const config = {
   kit: {
     adapter: adapter(),
     alias: {
+      $services: './src/services',
       $features: './src/features',
       $shared: './src/shared'
     }

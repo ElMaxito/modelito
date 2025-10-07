@@ -48,7 +48,9 @@ Uncomment one of the example themes in `src/app.css`:
 
 - `src/app.css` - Theme variables and overrides
 - `src/app.html` - Has `data-theme="luxury"` (can be removed if not using DaisyUI themes)
-- `src/features/shared/components/` - All UI components (Button, Card, etc.)
+- `src/shared/components/` - All UI components (Button, Card, etc.)
+- `src/features/authentication/` - Auth components and services
+- `src/features/database/` - Database clients and utilities
 
 ## Component Usage
 

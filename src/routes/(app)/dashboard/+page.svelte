@@ -7,7 +7,7 @@
     let { data }: { data: PageData } = $props()
   
     async function handleLogout() {
-      await authService.signOut()
+      await authService.logout()
       goto('/login')
     }
   </script>

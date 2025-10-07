@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit'
-import { getSupabaseServer } from '$lib/supabase'
+import { getSupabaseServer } from '../../../services/supabase/client'
 import type { RequestHandler } from './$types'
 
 export const GET: RequestHandler = async (event) => {

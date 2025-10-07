@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit'
-import { getSupabaseServer } from '$lib/supabase'
+import { getSupabaseServer } from '../../services/supabase/client'
 import type { LayoutServerLoad } from './$types'
 
 export const load: LayoutServerLoad = async (event) => {
