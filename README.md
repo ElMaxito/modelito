@@ -36,3 +36,10 @@ export async function GET() {
 - Concise, clear examples
 - One way to do things (mostly)
 - AI can parse easily
+
+###Basic boilerplate completed:
+- Landing Page works
+- Login Page works
+- Dashboard Page works
+- Supabase Auth using Google Login works
+- Page is deployed on Cloudflare & Updates according to Github-Repo
