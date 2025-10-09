@@ -37,9 +37,37 @@ export async function GET() {
 - One way to do things (mostly)
 - AI can parse easily
 
-###Basic boilerplate completed:
+### Basic boilerplate completed:
 - Landing Page works
 - Login Page works
 - Dashboard Page works
 - Supabase Auth using Google Login works
 - Page is deployed on Cloudflare & Updates according to Github-Repo
+
+### High-Level Idea
+┌─────────────────────────────────────┐
+│  Frontend (Svelte Components)       │
+│  - UI logic                         │
+│  - User interactions                │
+└─────────────────────────────────────┘
+            ↓ fetch('/api/...')
+┌─────────────────────────────────────┐
+│  Backend (routes/api/)              │  ← Your application logic
+│  - Business rules                   │
+│  - Data validation                  │
+│  - Combines multiple services       │
+└─────────────────────────────────────┘
+            ↓ uses $services/...
+┌─────────────────────────────────────┐
+│  Services (services/)               │  ← Infrastructure layer
+│  - Supabase client                  │
+│  - OpenRouter client                │
+│  - Stripe client                    │
+└─────────────────────────────────────┘
+            ↓ HTTP/REST calls
+┌─────────────────────────────────────┐
+│  External APIs                      │
+│  - Supabase servers                 │
+│  - OpenRouter servers               │
+│  - Stripe servers                   │
+└─────────────────────────────────────┘
