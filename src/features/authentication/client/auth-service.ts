@@ -1,15 +1,20 @@
 import type { User } from '@supabase/supabase-js'
-import { getSupabaseBrowser } from '../../services/supabase/client'
+import { getSupabaseBrowser } from '$services/supabase/client'
 
-export const authService = {
-  // Email/password methods (keep existing)
+function assertBrowserContext() {
+  if (typeof window === 'undefined') {
+    throw new Error('authServiceClient functions must be used in a browser context')
+  }
+}
+
+export const authServiceClient = {
   async signUp(email: string, password: string) {
     const supabase = getSupabaseBrowser()
     const { data, error } = await supabase.auth.signUp({
       email,
       password
     })
-    
+
     if (error) throw error
     return data
   },
@@ -20,13 +25,14 @@ export const authService = {
       email,
       password
     })
-    
+
     if (error) throw error
     return data
   },
 
-  // NEW: Google OAuth
   async signInWithGoogle() {
+    assertBrowserContext()
+
     const supabase = getSupabaseBrowser()
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
@@ -34,7 +40,7 @@ export const authService = {
         redirectTo: `${window.location.origin}/auth/callback`
       }
     })
-    
+
     if (error) throw error
     return data
   },
@@ -47,7 +53,11 @@ export const authService = {
 
   async getCurrentUser(): Promise<User | null> {
     const supabase = getSupabaseBrowser()
-    const { data: { user }, error } = await supabase.auth.getUser()
+    const {
+      data: { user },
+      error
+    } = await supabase.auth.getUser()
+
     if (error) throw error
     return user
   },

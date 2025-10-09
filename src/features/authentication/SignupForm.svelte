@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { authService } from './auth-service'
+  import { authServiceClient } from './client/auth-service'
   import { goto } from '$app/navigation'
   import { Sparkles, Mail, Lock, AlertCircle, CheckCircle2 } from 'lucide-svelte'
   import { Button } from '$shared/components'
@@ -15,7 +15,7 @@
     error = ''
 
     try {
-      await authService.signUp(email, password)
+      await authServiceClient.signUp(email, password)
       success = true
     } catch (err: any) {
       error = err.message
@@ -26,7 +26,7 @@
 
   async function handleGoogleSignup() {
     try {
-      await authService.signInWithGoogle()
+      await authServiceClient.signInWithGoogle()
     } catch (err: any) {
       error = err.message
     }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { authService } from '$features/authentication/auth-service'
+    import { authServiceClient } from '$features/authentication/client/auth-service'
     import { goto } from '$app/navigation'
     import { Sparkles, LogOut, User, Activity, TrendingUp, Zap, BarChart3, Settings, Plus } from 'lucide-svelte'
     import type { PageData } from './$types'
@@ -7,7 +7,7 @@
     let { data }: { data: PageData } = $props()
   
     async function handleLogout() {
-      await authService.logout()
+      await authServiceClient.logout()
       goto('/login')
     }
   </script>

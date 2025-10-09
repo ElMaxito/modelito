@@ -1,17 +1,14 @@
 import { redirect } from '@sveltejs/kit'
-import { getSupabaseServer } from '../../services/supabase/client'
+import { authServiceServer } from '$features/authentication/server/auth-service'
 import type { LayoutServerLoad } from './$types'
 
 export const load: LayoutServerLoad = async (event) => {
-  const supabase = getSupabaseServer(event)
-  
-  // Check if user is authenticated
-  const { data: { user } } = await supabase.auth.getUser()
-  
+  const user = await authServiceServer.getUser(event)
+
   if (!user) {
     throw redirect(303, '/login')
   }
-  
+
   // Return user data to all pages in (app) group
   return {
     user
