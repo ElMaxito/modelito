@@ -18,6 +18,21 @@
     { label: 'Settings', href: '#', icon: Settings }
   ]
 
+  function deriveInitial(email: string): string {
+    return email.trim().charAt(0).toUpperCase() || 'A'
+  }
+
+  function deriveLabel(email: string): string {
+    if (!email) return 'Account'
+    const [name] = email.split('@')
+    if (!name) return 'Account'
+    return name.charAt(0).toUpperCase() + name.slice(1)
+  }
+
+  const userEmail = $derived(data.user?.email ?? '')
+  const userInitial = $derived(deriveInitial(userEmail))
+  const userLabel = $derived(deriveLabel(userEmail))
+
   async function handleLogout() {
     await authServiceClient.logout()
     goto('/login')
@@ -31,17 +46,17 @@
 
 <div class="min-h-screen animated-gradient text-white flex">
   <aside
-    class="glass-effect border-r border-white/10 min-h-screen flex flex-col"
+    class="glass-effect border-r border-white/8 min-h-screen flex flex-col"
     style:width={`${$sidebarWidth}px`}
   >
-    <div class="flex flex-1 flex-col p-6 gap-8">
+    <div class="flex flex-1 flex-col gap-10 p-6">
       <div class="flex items-center justify-between">
         <a href="/dashboard" class="flex items-center gap-3 text-xl font-semibold gradient-text-accent uppercase tracking-wide">
           <span class={sidebarOpen ? '' : 'sr-only'}>Modelito</span>
         </a>
         <button
           type="button"
-          class="btn btn-circle btn-sm glass-effect-light border border-white/10 hover:border-primary hover:text-primary"
+          class="flex h-9 w-9 items-center justify-center rounded-full border border-white/12 bg-white/5 text-white/60 transition hover:border-white/20 hover:text-white"
           onclick={toggleSidebar}
           aria-label="Toggle sidebar"
         >
@@ -53,30 +68,54 @@
         </button>
       </div>
 
-      <nav class="flex-1 space-y-2">
+      <nav class="flex-1 space-y-1">
         {#each navItems as item}
           <a
             href={item.href}
-            class={`group flex items-center rounded-2xl px-4 py-3 transition-colors ${
-              sidebarOpen ? 'gap-3' : 'justify-center'
+            class={`group flex items-center rounded-2xl text-sm font-medium transition-colors duration-200 ${
+              sidebarOpen
+                ? 'gap-3 px-4 py-3'
+                : 'justify-center p-3'
             }`}
+            aria-label={sidebarOpen ? undefined : item.label}
           >
-            <item.icon class={`${sidebarOpen ? 'w-5 h-5' : 'w-7 h-7'} text-gray-300 transition-colors duration-200 group-hover:text-[color:var(--theme-primary)]`} />
-            <span class={`text-sm font-medium ${sidebarOpen ? '' : 'sr-only'}`}>{item.label}</span>
+            <item.icon
+              class={`${sidebarOpen ? 'h-5 w-5' : 'h-6 w-6'} text-white/60 transition-colors duration-200 group-hover:text-[color:var(--theme-primary)]`}
+            />
+            <span class={`${sidebarOpen ? '' : 'sr-only'}`}>{item.label}</span>
           </a>
         {/each}
       </nav>
 
-      <div class="mt-auto space-y-3">
-        <div class={`glass-effect-light border border-white/10 rounded-2xl px-4 py-3 ${sidebarOpen ? '' : 'text-center'}`}>
-          <p class="text-sm font-medium text-gray-100 truncate">{data.user.email}</p>
+      <div class="mt-auto space-y-4">
+        <div
+          class={`flex items-center transition-all duration-200 ${
+            sidebarOpen ? 'gap-3 px-4 py-3' : 'justify-center p-2'
+          }`}
+        >
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.12] text-sm font-semibold tracking-wide text-white">
+            {userInitial}
+          </div>
+          {#if sidebarOpen}
+            <div class="flex flex-col">
+              <span class="text-sm font-medium text-white/90">{userLabel}</span>
+              <span class="text-xs text-white/40">Signed in</span>
+            </div>
+          {/if}
         </div>
         <button
-          class="btn btn-sm glass-effect-light border-white/20 text-white hover:bg-white/10 w-full"
+          class={`flex w-full items-center justify-center rounded-2xl border border-transparent text-white/70 transition-all duration-200 hover:border-[color:var(--theme-primary)]/50 hover:text-[color:var(--theme-primary)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--theme-primary)]/40 ${
+            sidebarOpen ? 'gap-2 px-4 py-3 text-sm font-medium' : 'p-3'
+          }`}
           onclick={handleLogout}
         >
-          <span class={sidebarOpen ? '' : 'sr-only'}>Logout</span>
-          <span aria-hidden={!sidebarOpen}>⎋</span>
+          {#if sidebarOpen}
+            <span>Logout</span>
+            <span aria-hidden="true">⎋</span>
+          {:else}
+            <span aria-hidden="true">⎋</span>
+            <span class="sr-only">Logout</span>
+          {/if}
         </button>
       </div>
     </div>
