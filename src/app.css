@@ -60,15 +60,15 @@
      THEME SWITCHER - Change these variables to switch themes
      ============================================ */
 
-	/* Current Theme: Luxury Gold */
-	--theme-primary: #d4af37; /* Gold */
-	--theme-primary-dark: #b8860b; /* Darker Gold */
-	--theme-primary-light: #ffd700; /* Bright Gold */
-	--theme-secondary: #b8860b; /* Medium Gold */
-	--theme-accent: #ffd700; /* Bright Gold */
-	--theme-neutral: #1a1a1a; /* Dark gray */
-	--theme-base: #000000; /* Black */
-	--theme-text-on-primary: #000000; /* Black text on gold */
+	/* Current Theme: Minimal Night */
+	--theme-primary: #0a84ff; /* Accent Blue */
+	--theme-primary-dark: #0060df; /* Accent Blue - Hover */
+	--theme-primary-light: #4aa3ff; /* Accent Blue - Light */
+	--theme-secondary: #1c1d22; /* Neutral Surface */
+	--theme-accent: #30d158; /* Accent Green */
+	--theme-neutral: #1c1d22; /* Neutral Gray */
+	--theme-base: #0f1115; /* Base Background */
+	--theme-text-on-primary: #ffffff; /* Text on Primary */
 
 	/* Alternative Theme Examples (uncomment to switch):
   
@@ -95,11 +95,11 @@
   */
 
 	/* Brand Colors */
-	--color-brand-gold: 212 175 55; /* #D4AF37 */
-	--color-brand-gold-light: 255 215 0; /* #FFD700 */
-	--color-brand-gold-dark: 184 134 11; /* #B8860B */
-	--color-brand-black: 0 0 0;
-	--color-brand-black-light: 26 26 26;
+	--color-brand-gold: 10 132 255; /* #0A84FF */
+	--color-brand-gold-light: 100 210 255; /* #64D2FF */
+	--color-brand-gold-dark: 0 96 223; /* #0060DF */
+	--color-brand-black: 15 17 21;
+	--color-brand-black-light: 28 29 34;
 
 	/* Gradients */
 	--gradient-brand: linear-gradient(
@@ -112,12 +112,12 @@
 		rgb(var(--color-brand-gold-light)) 0%,
 		rgb(var(--color-brand-gold)) 100%
 	);
-	--gradient-dark: linear-gradient(-45deg, #000000, #0a0a0a, #1a1a1a, #0d0d0d);
+	--gradient-dark: linear-gradient(180deg, #0f1115, #14161c);
 
 	/* Shadows */
-	--shadow-glow-gold: 0 0 20px rgba(212, 175, 55, 0.5), 0 0 40px rgba(255, 215, 0, 0.3);
-	--shadow-glow-gold-intense: 0 0 30px rgba(212, 175, 55, 0.6), 0 0 60px rgba(255, 215, 0, 0.4);
-	--shadow-lift: 0 20px 40px rgba(0, 0, 0, 0.5);
+	--shadow-glow-gold: 0 10px 30px rgba(10, 132, 255, 0.2), 0 0 20px rgba(10, 132, 255, 0.15);
+	--shadow-glow-gold-intense: 0 12px 32px rgba(10, 132, 255, 0.28), 0 0 24px rgba(100, 210, 255, 0.18);
+	--shadow-lift: 0 16px 32px rgba(0, 0, 0, 0.4);
 
 	/* Blur values */
 	--blur-glass: 10px;
@@ -181,19 +181,19 @@
 
 /* Glassmorphism Effects */
 .glass-effect {
-	background: rgba(255, 255, 255, 0.05);
-	backdrop-filter: blur(var(--blur-glass));
-	-webkit-backdrop-filter: blur(var(--blur-glass));
-	border: 1px solid rgba(255, 255, 255, 0.1);
-	box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+	background: rgba(255, 255, 255, 0.04);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(255, 255, 255, 0.06);
+	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
 }
 
 .glass-effect-light {
-	background: rgba(255, 255, 255, 0.08);
-	backdrop-filter: blur(var(--blur-glass-strong));
-	-webkit-backdrop-filter: blur(var(--blur-glass-strong));
-	border: 1px solid rgba(255, 255, 255, 0.15);
-	box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.4);
+	background: rgba(255, 255, 255, 0.06);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+	border: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
 }
 
 /* Gradient Text */
@@ -247,7 +247,7 @@
 }
 
 .hover-lift:hover {
-	transform: translateY(-8px);
+	transform: translateY(-4px);
 	box-shadow: var(--shadow-lift);
 }
 
